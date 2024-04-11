@@ -1,0 +1,34 @@
+dat=`date +"%d_%m_%Y"`
+bdir=backup_$dat
+if [ ! -d $bdir ]
+then 
+mkdir $bdir
+else 
+echo "Directory with name $bdir already exist."
+exit 0 
+fi 
+echo -n "Enter the extension of the files to backup: "
+read fextn
+ctr=0
+for i in `ls -1 *.$fextn`
+do 
+cp $i ./$bdir
+ctr=`expr $ctr + 1`
+done 
+if [ $ctr -gt 0 ]
+then 
+tar -czf $bdir.tar $bdir
+cd $bdir
+rm -r *.* 
+cd ..
+rmdir $bdir 
+echo "All files with extension .$fextn stored in $bdir.tar"
+else 
+rmdir $bdir 
+echo "no files with the extension found."
+fi
+#To help user with linux ubantu commands.
+echo -n "PLEASE ENTER THE COMMAND NAME YOU DON'T KNOW : "
+read cmdd
+echo "YOUR COMMAND $cmdd IS GIVEN BELOW.:-"
+whatis $cmdd

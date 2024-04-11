@@ -1,0 +1,65 @@
+#Script to perfprm operations till users decides to exit.
+choice=y
+until [ $choice = n ]
+do 
+
+
+echo " Choose an option from menu given below. "
+
+echo "a: List of files and directories in a current directory."
+echo "b: Display current working directory"
+echo "c: Display current date and time"
+echo "d: Serching a word from file"
+echo "e: Exit"
+echo "  "
+echo -n "Enter your choice [a-e]: "
+read ch 
+case $ch in 
+a)
+ls -1
+
+;;
+
+b)
+echo "You are working in `pwd`."
+
+;;
+
+c)
+
+echo "Current date and time is `date`."
+
+;;
+
+d)
+echo -n "Enter the word to be searched: "
+read word
+echo -n "Enter the file name from which the word is to be searched: "
+read file
+if [ -f $file ]
+then
+grep $word $file
+else
+echo -n "File with name $file does not exist."
+fi
+
+;;
+
+e)
+exit
+
+;;
+
+*)
+echo "Incorrect choice, try again.."
+
+;;
+
+esac
+echo -n "Do you want to continue? [y-yes,n-no] : "
+read choice
+
+done
+
+
+
